@@ -29,6 +29,8 @@ namespace WallMessage
             services.AddDbContext<AppDbContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("SqlExpress")));
             services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
 
+            //services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
+
             services.AddControllersWithViews();
             
         }
@@ -41,7 +43,9 @@ namespace WallMessage
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
         }
