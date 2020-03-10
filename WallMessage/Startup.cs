@@ -1,22 +1,39 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WallMessage.Data;
+using WallMessage.Models;
 
 namespace WallMessage
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+
+        public IConfiguration Configuration { get; }
+
+        public Startup()
         {
+            var configurationBuilder = new ConfigurationBuilder();
 
-            services.AddControllersWithViews();
+            configurationBuilder.AddJsonFile("appsettings.json").AddEnvironmentVariables("APP_");
 
+            Configuration = configurationBuilder.Build();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<AppDbContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("SqlExpress")));
+            services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddControllersWithViews();
+            
+        }
+
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
