@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WallMessage.Data;
 using WallMessage.Models;
+using WallMessage.Services;
 
 namespace WallMessage
 {
@@ -29,10 +30,9 @@ namespace WallMessage
             services.AddDbContext<AppDbContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("SqlExpress")));
             services.AddIdentity<User, IdentityRole<int>>().AddEntityFrameworkStores<AppDbContext>();
 
-            //services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
-
             services.AddControllersWithViews();
-            
+
+            services.AddScoped<MessageManager>();
         }
 
 

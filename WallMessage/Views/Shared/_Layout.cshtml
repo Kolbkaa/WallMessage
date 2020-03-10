@@ -15,7 +15,7 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" asp-action="Index" asp-controller="Home">Wyświetl wiadomości</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +24,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a asp-action="Add" asp-controller="Home" class="nav-link" >Dodaj wiadomość</a>
                 </li>
 
             </ul>
@@ -39,7 +39,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a asp-action="Register" asp-controller="Account" class="nav-link" >Zareejestruj</a>
+                        <a asp-action="Register" asp-controller="Account" class="nav-link" >Zarejestruj</a>
                     </li>
                     <li class="nav-item">
                         <a asp-action="LogIn" asp-controller="Account" class="nav-link" >Zaloguj</a>

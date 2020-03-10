@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<Message>
+@inject UserManager<User> UserManager
+
+@if (Model != null)
+{
+
+@foreach (var message in @Model)
+{
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@message.User.UserName</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@message.CreateDate</h6>
+            <p class="card-text">@message.Content</p>
+
+            @if (UserManager.GetUserAsync(User).Result.Equals(message.User))
+            {
+                if ((DateTime.Now - message.CreateDate).Minutes < 10)
+                {
+                    <a asp-action="Edit" asp-route-id="@message.Id" class="card-link">Edytuj</a>
+                }
+                <a asp-action="Delete" asp-route-id="@message.Id" class="card-link">Usuń</a>
+            }
+        </div>
+    </div>
+    <hr/>
+
+}
+}
+else
+{
+    <p>Brak wiadomości.</p>
+}

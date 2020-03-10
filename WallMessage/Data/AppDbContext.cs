@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WallMessage.Models;
@@ -16,5 +17,7 @@ namespace WallMessage.Data
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Message> Messages { get; set; }
     }
 }
